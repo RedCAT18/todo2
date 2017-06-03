@@ -24,6 +24,13 @@
         <div id="inbox-table">
             <table class="table table-striped">
                 <caption>일정</caption>
+                <thead>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Delete</th>
+                </thead>
                 <tbody>
                     <app-todo-list-table  v-for="data in todoList" :key="data" :tableList="data"></app-todo-list-table>
                 </tbody>
@@ -77,10 +84,10 @@
     created(){
         this.todoList = tempTodo;
     },
-    mounted(){
+    beforeMount(){
         eventBus.$on('sendEditId', (editData) => {
-
-            for (var i = 0; i < this.todoList.length; i++){
+            var len = this.todoList.length;
+            for (var i = 0; i < len; i++){
                 if(this.todoList[i].id == editData) {
                     this.todo = this.todoList[i];
                 }
@@ -88,12 +95,13 @@
 
         });
         eventBus.$on('sendDeleteId', (deleteData) => {
-
-            for (var i = 0; i < this.todoList.length; i++){
+            var len = this.todoList.length;
+            for (var i = 0; i < len; i++){
                 if(this.todoList[i].id == deleteData) {
 //                    console.log(i);
                     if(confirm("정말로 삭제하시겠습니까?")) {
                         this.todoList.splice(i,1);
+                        break;
                     }
                 }
             }
@@ -108,6 +116,8 @@
     }
 </script>
 
-<style>
-
+<style scoped>
+    thead th {
+        padding: 10px;
+    }
 </style>
