@@ -8,10 +8,10 @@
          <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-                <app-menu-tab-panel v-for="item in lists" :panel="item"></app-menu-tab-panel>
+                <app-menu-tab-panel v-for="item in lists" :key="item" :panel="item"></app-menu-tab-panel>
             </div>
             <div role="tabpanel" class="tab-pane" id="profile">
-                <app-menu-tab-panel v-for="item in lastPlan" :panel="item"></app-menu-tab-panel>
+                <app-menu-tab-panel v-for="item in lastPlan" :key="item2" :panel="item"></app-menu-tab-panel>
             </div>
         </div>
     </div>

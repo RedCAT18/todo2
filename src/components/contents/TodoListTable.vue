@@ -23,6 +23,7 @@
         },
         methods: {
             editTodo(id){
+                console.log(id);
                 eventBus.$emit('sendEditId', id);
             },
             deleteTodo(id){

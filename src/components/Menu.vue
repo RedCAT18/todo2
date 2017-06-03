@@ -4,7 +4,7 @@
     		<ul class="list-group">
 			   <app-menu-item 
 			   		v-for="menu in menus" 
-			   		:item="menu">
+			   		:item="menu" :key="menu">
 			   	</app-menu-item>
 			</ul>
     	</div>

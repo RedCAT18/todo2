@@ -25,7 +25,7 @@
             <table class="table table-striped">
                 <caption>일정</caption>
                 <tbody>
-                    <app-todo-list-table  v-for="data in todoList" :tableList="data"></app-todo-list-table>
+                    <app-todo-list-table  v-for="data in todoList" :key="data" :tableList="data"></app-todo-list-table>
                 </tbody>
             </table>
         </div>
@@ -38,10 +38,10 @@
     import { eventBus } from '../../main';
 
     var tempTodo = [
-        {id:1, title: '테스트일정1', date: '2017.05.01', type: 'inbox'},
-        {id:2, title: '테스트일정2', date: '2017.05.01', type: 'inbox'},
-        {id:3, title: '테스트일정3', date: '2017.05.01', type: 'inbox'},
-        {id:4, title: '테스트일정4', date: '2017.05.01', type: 'inbox'}
+        {id:1, title: '테스트일정1', date: '2017-05-01', type: 'inbox'},
+        {id:2, title: '테스트일정2', date: '2017-05-01', type: 'inbox'},
+        {id:3, title: '테스트일정3', date: '2017-05-01', type: 'inbox'},
+        {id:4, title: '테스트일정4', date: '2017-05-01', type: 'inbox'}
     ];
 
     export default {
@@ -92,11 +92,16 @@
             for (var i = 0; i < this.todoList.length; i++){
                 if(this.todoList[i].id == deleteData) {
 //                    console.log(i);
-                    this.todoList.splice(i,1);
+                    if(confirm("정말로 삭제하시겠습니까?")) {
+                        this.todoList.splice(i,1);
+                    }
                 }
             }
         });
     },
+    updated(){
+        console.log(this.todoList);
+    }
         //새로 생성한 항목을 수정하면, 값은 수정되는데 뷰에서는 바뀌지 않는다 why?
         //수정된 값이 TodoListTable.vue로 넘어가지 않기 때문???
 
