@@ -4,7 +4,7 @@
         <hr>
         <div id="inbox-form">
             <div class="form-group col-sm-3 col-md-3 col-lg-3">
-                <input type="text" class="form-control input-sm" placeholder="일정입력" @blur="resetValue()" v-model="todo.title">
+                <input type="text" class="form-control input-sm" placeholder="일정입력" v-model="todo.title">
             </div>
 
             <div class="form-group col-sm-3 col-md-3 col-lg-3">
@@ -17,6 +17,7 @@
 
             <div class="col-sm-3 col-md-3 col-lg-3">
                 <button class="btn btn-info btn-sm" @click="addTodo()">일정추가</button>
+                <button class="btn btn-default btn-sm" @click="resetValue()">Reset</button>
             </div>
         </div>
 
@@ -68,7 +69,7 @@
                 this.todoList.push(this.todo);
             }
         },
-        //입력창에서 포커스가 빠져나갔을 때, 바인딩 된 값을 초기화
+        //입력창 리셋
         resetValue(){
             this.todo = {};
         }
@@ -78,18 +79,27 @@
     },
     mounted(){
         eventBus.$on('sendEditId', (editData) => {
-//            console.log(data);
+//            console.log(this.todoList);
             this.todo = this.todoList[editData];
         });
         eventBus.$on('sendDeleteId', (deleteData) => {
-//            console.log(data);
-            this.todoList.splice(deleteData,1);
+//            this.todoList.splice(deleteData,1);
+            console.log("input :" + deleteData);
+            //해당 id 값이 배열에 있는지 검색
+            //있을 경우, 그 값의 인덱스를 찾아 삭제
+
+            for (var i = 0; i < this.todoList.length; i++){
+                if(this.todoList[i].id == deleteData) {
+                    console.log(i);
+                    this.todoList.splice(i,1);
+                }
+            }
         });
     },
-//    beforeUpdate() {
-//
-//    }
-}
+        //새로 생성한 항목을 수정하면, 값은 수정되는데 뷰에서는 바뀌지 않는다 why?
+        //수정된 값이 TodoListTable.vue로 넘어가지 않기 때문???
+
+    }
 </script>
 
 <style>

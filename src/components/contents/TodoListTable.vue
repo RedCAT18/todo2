@@ -1,15 +1,13 @@
 <template>
-
-        <tr @click="editTodo(tableList.id)">
-            <td><input type="checkbox" class="input-sm" :id="'tableList'+ tableList.id"></td>
-            <td>{{tableList.title}}</td>
-            <td>{{tableList.date}}</td>
-            <td>{{tableList.type}}</td>
-            <td>
-                <span class="glyphicon glyphicon-remove" aria-hidden="true" @click.stop="deleteTodo(tableList.id)"></span>
-            </td>
-        </tr>
-
+    <tr @click="editTodo(tableList.id)">
+        <td><input type="checkbox" class="input-sm" :id="'tableList'+ tableList.id"></td>
+        <td>{{tableList.title}}</td>
+        <td>{{tableList.date}}</td>
+        <td>{{tableList.type}}</td>
+        <td @click.stop="deleteTodo(tableList.id)">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>
+        </td>
+    </tr>
 </template>
 
 <script>
@@ -29,7 +27,7 @@
             },
             deleteTodo(id){
 //                console.log(id);
-                eventBus.$emit('sendDeleteId', id-1);
+                eventBus.$emit('sendDeleteId', id);
             }
         }
     }
