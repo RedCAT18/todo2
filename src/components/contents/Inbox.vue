@@ -79,18 +79,19 @@
     },
     mounted(){
         eventBus.$on('sendEditId', (editData) => {
-//            console.log(this.todoList);
-            this.todo = this.todoList[editData];
+
+            for (var i = 0; i < this.todoList.length; i++){
+                if(this.todoList[i].id == editData) {
+                    this.todo = this.todoList[i];
+                }
+            }
+
         });
         eventBus.$on('sendDeleteId', (deleteData) => {
-//            this.todoList.splice(deleteData,1);
-            console.log("input :" + deleteData);
-            //해당 id 값이 배열에 있는지 검색
-            //있을 경우, 그 값의 인덱스를 찾아 삭제
 
             for (var i = 0; i < this.todoList.length; i++){
                 if(this.todoList[i].id == deleteData) {
-                    console.log(i);
+//                    console.log(i);
                     this.todoList.splice(i,1);
                 }
             }
