@@ -6,13 +6,7 @@
 
 <script>
 	
-	export default {
-		data : function() {
-			return {
-                //data model
-			}
-		}
-	}
+
 </script>
 
 <style>

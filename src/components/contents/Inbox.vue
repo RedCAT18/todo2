@@ -52,67 +52,73 @@
     ];
 
     export default {
-    data: function(){
-	    return {
-            todo: [
-                {
-                    id: '',
-                    title: '',
-                    date: '',
-                    type: ''
-                }
-            ],
-            todoList:[]
-	    }
-    },
-    components: {
-        appTodoListTable : TodoListTable
-    },
-    methods: {
-        //create
-        addTodo(){
-            if(!this.todo.id) {
-                this.todo.id = this.todoList.length + 1;
-                this.todoList.push(this.todo);
+        data: function(){
+            return {
+                todo: [
+                    {
+                        id: '',
+                        title: '',
+                        date: '',
+                        type: ''
+                    }
+                ],
+                todoList:[]
             }
         },
-        //입력창 리셋
-        resetValue(){
-            this.todo = {};
-        }
-    },
-    created(){
-        this.todoList = tempTodo;
-    },
-    beforeMount(){
-        eventBus.$on('sendEditId', (editData) => {
-            var len = this.todoList.length;
-            for (var i = 0; i < len; i++){
-                if(this.todoList[i].id == editData) {
-                    this.todo = this.todoList[i];
-                }
-            }
+        components: {
+            appTodoListTable : TodoListTable
+        },
+        watch: {
+           todoList: function(){
+               //todoList가 변경되었을 시 새로운 데이터를 갱신?
 
-        });
-        eventBus.$on('sendDeleteId', (deleteData) => {
-            var len = this.todoList.length;
-            for (var i = 0; i < len; i++){
-                if(this.todoList[i].id == deleteData) {
-//                    console.log(i);
-                    if(confirm("정말로 삭제하시겠습니까?")) {
-                        this.todoList.splice(i,1);
-                        break;
+           }
+        },
+        methods: {
+            //create
+            addTodo(){
+                if(!this.todo.id) {
+                    this.todo.id = this.todoList.length + 1;
+                    this.todoList.push(this.todo);
+                }
+            },
+            //입력창 리셋
+            resetValue(){
+                this.todo = {};
+            }
+        },
+        created(){
+            this.todoList = tempTodo;
+        },
+        beforeMount(){
+            eventBus.$on('sendEditId', (editData) => {
+                var len = this.todoList.length;
+                for (var i = 0; i < len; i++){
+                    if(this.todoList[i].id == editData) {
+                        this.todo = this.todoList[i];
                     }
                 }
-            }
-        });
-    },
-    updated(){
-        console.log(this.todoList);
-    }
-        //새로 생성한 항목을 수정하면, 값은 수정되는데 뷰에서는 바뀌지 않는다 why?
-        //수정된 값이 TodoListTable.vue로 넘어가지 않기 때문???
 
+            });
+            eventBus.$on('sendDeleteId', (deleteData) => {
+                var len = this.todoList.length;
+                for (var i = 0; i < len; i++){
+                    if(this.todoList[i].id == deleteData) {
+    //                    console.log(i);
+                        if(confirm("정말로 삭제하시겠습니까?")) {
+                            this.todoList.splice(i,1);
+                            break;
+                        }
+                    }
+                }
+            });
+        },
+    //    updated(){
+    //        console.log(this.todoList);
+    //    }
+            //새로 생성한 항목을 수정하면, 값은 수정되는데 뷰에서는 바뀌지 않는다 why?
+            //수정된 값이 TodoListTable.vue로 넘어가지 않기 때문???
+            //가상돔 문제.
     }
 </script>
 

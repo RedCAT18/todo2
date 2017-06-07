@@ -1,15 +1,15 @@
 <template>
     <div class="container">
-    	<app-header></app-header>
-    	<app-menu></app-menu>
-    	<app-contents></app-contents>
+    	<!--<app-header></app-header>-->
+    	<!--<app-menu></app-menu>-->
+    	<!--<app-contents></app-contents>-->
+		<router-view></router-view>
     </div>
 </template>
 
 <script>
-	import Header from './components/Header.vue'
-	import Menu from './components/Menu.vue'
-	import Contents from './components/Contents.vue'
+//	import Register from './Register.vue'
+//	import Login from './Login.vue';
 
 	export default {
 	   data: function(){
@@ -18,11 +18,10 @@
 		    }
 	    },
 
-		components : {
-	        appHeader: Header,
-	    	appMenu: Menu,
-	    	appContents: Contents
-	    }
+//		components : {
+//	        appRegister: Register,
+//	        appLogin: Login,
+//	    }
 	}
 </script>
 

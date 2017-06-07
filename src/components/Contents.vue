@@ -1,6 +1,7 @@
 <template>
     <div class="contents col-sm-9 col-md-8 col-lg-8">
-    	<component :is="selectedComponent"></component>
+    	<!--<component :is="selectedComponent"></component>-->
+        <router-view></router-view>
     </div>
 </template>
 

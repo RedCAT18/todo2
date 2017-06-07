@@ -27,16 +27,16 @@
     	},
 		methods: {
             getMenu(id){
-    	        var screen = null;
+//    	        var screen = null;
     	        switch(id){
 					case 1:
-					    screen = srcInbox;
+                        this.$router.push('/inbox');
 					    break;
 					case 2:
-						screen = srcToday;
+                        this.$router.push('/today');
 						break;
 					case 3:
-					    screen = srcNextWeek;
+                        this.$router.push('/nextweek');
 					    break;
 				}
 				eventBus.$emit('setScreen', screen);
