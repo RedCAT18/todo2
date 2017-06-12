@@ -9,12 +9,12 @@
     export default {
     	props: ['panel'],
 
-    	data: function(){
-	    	return {
-	       //...     
-	    }
+    	data: function() {
+            return {
+                //...
+            }
+        }
     }
-}
 </script>
 
 <style>

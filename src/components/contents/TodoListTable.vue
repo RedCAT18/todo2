@@ -15,11 +15,8 @@
 
     export default {
         props: ['tableList'],
-
-        data: function () {
-            return {
-                //model...
-            }
+        data(){
+          return {  }
         },
         methods: {
             editTodo(id){

@@ -17,40 +17,35 @@
             </label>
         </div>
         <div class="btn-area">
-            <button class="btn btn-custom btn-color" @click="login()">Login</button>
+            <button class="btn btn-custom btn-color" @click="doLogin">Login</button>
             <router-link to="/register" tag="button" class="btn btn-custom pull-right">Register</router-link>
             <p>If you are not a member, please sign up first.  </p>
         </div>
     </div>
 </template>
+
 <script>
+
     export default {
         data(){
             return {
                 email: '',
                 password: '',
-                login_fail: false,
+                login_fail: false
             }
         },
         methods : {
-            login : function(){
-                axios.post('/login', this.$data.login_data).then(response => {
-                    let rsp = response.data;
-                    //console.log(rsp);
-                    //1, 리턴값이 email 입력 요구일때 : email 경고메세지를 띄운다.
-                    if(!(rsp.email == null)) { this.$data.email = null; }
-                    //2. 리턴값이 password 입력 요구일 때 : password 경고 메세지를 띄운다.
-                    else if(rsp.email == null && rsp.password) { this.$data.password = null; }
-                    //3. 리턴값이 로그인 실패 일 때 : 로그인 정보 확인 메세지를 띄운다.
-                    else if(rsp == 'fail') {
-                        //alert('done');
-                        this.$data.login_fail = true;
-                        //4. 리턴값이 로그인 성공일 때 : 다음 페이지로 리다이렉팅한다.
-                    } else if (rsp == 'success') {
-                        this.$router.push('/main');
-                    }
-                });
-            },
+            doLogin(){
+                let param= {
+                    email: this.email,
+                    password: this.password
+                };
+                this.$http.post('localhost:8000/api/login', param)
+                    .then(response => {
+//                                console.log(response);
+                        this.$auth.setToken(response.body.token);
+                    });
+            }
         }
     }
 </script>
@@ -67,5 +62,5 @@
     h3 { margin: 0; padding: 0; }
     .btn-color{ background-color: #2ea5b7; color: #fff; }
     .btn-custom{ padding: 8px 15px; font-size: 11pt; }
-    .login-warning { color: #dc143c; padding-left: 5px; padding-top: 3px; }
+    .login-warning { color: #dc143c; font-size: 9pt;  padding-left: 5px; padding-top: 3px; }
 </style>

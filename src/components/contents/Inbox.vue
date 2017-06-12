@@ -32,7 +32,7 @@
                     <th>Delete</th>
                 </thead>
                 <tbody>
-                    <app-todo-list-table  v-for="data in todoList" :key="data" :tableList="data"></app-todo-list-table>
+                    <app-todo-list-table  v-for="item in todoList" :key="item.id" :tableList="item"></app-todo-list-table>
                 </tbody>
             </table>
         </div>
@@ -69,9 +69,10 @@
             appTodoListTable : TodoListTable
         },
         watch: {
-           todoList: function(){
+           todoList: function(newData) {
+//               console.log(newData);
                //todoList가 변경되었을 시 새로운 데이터를 갱신?
-
+               this.todoList = newData;
            }
         },
         methods: {
@@ -85,6 +86,7 @@
             //입력창 리셋
             resetValue(){
                 this.todo = {};
+
             }
         },
         created(){

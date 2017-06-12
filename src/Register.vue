@@ -3,20 +3,20 @@
         <div class="login-title"><h3>Sign up</h3></div>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="type" class="form-control" id="name" v-model="name" placeholder="Input your name">
-            <p class="login-warning" v-if="!name"> 이름을 입력해 주십시오. </p>
+            <input type="type" class="form-control" id="name" v-model="name" placeholder="Input your name" required>
+            <p class="login-warning" v-if="!name"> Please input your name. </p>
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" v-model="email" id="email" placeholder="Input your email">
-            <p class="login-warning" v-if="!email"> 이메일을 입력해 주십시오. </p>
-            <p class="login-warning" v-if="submit_email_fail">중복된 이메일입니다.</p>
+            <input type="email" class="form-control" v-model="email" id="email" placeholder="Input your email" required>
+            <p class="login-warning" v-if="!email"> Please input your email. </p>
+            <p class="login-warning" v-if="submit_email_fail">Thie email is already used.</p>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" v-model="password" placeholder="Input your assword">
-            <p class="login-warning" v-if="!password"> 비밀번호를 입력해 주십시오. </p>
-            <p class="login-warning" v-if="submit_pw_fail">비밀번호는 최소 6자리 이상이어야 됩니다.</p>
+            <input type="password" class="form-control" id="password" v-model="password" placeholder="Input your assword" required>
+            <p class="login-warning" v-if="!password"> Please input your password. </p>
+            <p class="login-warning" v-if="submit_pw_fail">Password must be longer than 6 characters.</p>
 
         </div>
         <div class="btn-area">

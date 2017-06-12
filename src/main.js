@@ -1,15 +1,22 @@
 //es6
+//es5 : require(path)
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
+import Auth from './package/auth/auth';
 import App from './App.vue';
-//es5 : require(path)
-import axios from 'axios';
 
 import { routes } from './routes';
+
+
+// import axios from 'axios';
+
 Vue.use(VueRouter);
+Vue.use(VueResource);
+Vue.use(Auth);
 
 //global use
-Vue.prototype.$http = axios;
+// Vue.prototype.$http = axios;
 
 const router = new VueRouter({
     routes,
