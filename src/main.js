@@ -8,7 +8,6 @@ import App from './App.vue';
 
 import { routes } from './routes';
 
-
 // import axios from 'axios';
 
 Vue.use(VueRouter);
@@ -28,5 +27,5 @@ export const eventBus = new Vue(); // 상수
 new Vue({
   el: '#app',
     router,
-  render: h => h(App)
+    render: h => h(App)
 })

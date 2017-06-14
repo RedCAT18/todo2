@@ -4,6 +4,7 @@
         <td>{{tableList.title}}</td>
         <td>{{tableList.date}}</td>
         <td>{{tableList.type}}</td>
+        <td>{{tableList.status}}</td>
         <td @click.stop="deleteTodo(tableList.id)">
             <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>
         </td>

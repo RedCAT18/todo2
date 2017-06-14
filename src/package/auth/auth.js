@@ -8,13 +8,13 @@ export default function(Vue){
     Vue.auth = {
         getToken(){
             //자바스크립트 기본제공함수
-            localStorage.getItem('token');
+            return localStorage.getItem('token');
         },
         setToken(token){
             localStorage.setItem('token', token);
         },
         destroyToken(){
-
+            localStorage.removeItem('token');
         },
         isAuthenticated(){
             if (this.getToken()){

@@ -29,6 +29,7 @@
                     <th>Title</th>
                     <th>Date</th>
                     <th>Type</th>
+                    <th>Status</th>
                     <th>Delete</th>
                 </thead>
                 <tbody>
@@ -44,12 +45,12 @@
     import TodoListTable from './TodoListTable.vue';
     import { eventBus } from '../../main';
 
-    var tempTodo = [
-        {id:1, title: '테스트일정1', date: '2017-05-01', type: 'inbox'},
-        {id:2, title: '테스트일정2', date: '2017-05-01', type: 'inbox'},
-        {id:3, title: '테스트일정3', date: '2017-05-01', type: 'inbox'},
-        {id:4, title: '테스트일정4', date: '2017-05-01', type: 'inbox'}
-    ];
+//    var tempTodo = [
+//        {id:1, title: '테스트일정1', date: '2017-05-01', type: 'inbox'},
+//        {id:2, title: '테스트일정2', date: '2017-05-01', type: 'inbox'},
+//        {id:3, title: '테스트일정3', date: '2017-05-01', type: 'inbox'},
+//        {id:4, title: '테스트일정4', date: '2017-05-01', type: 'inbox'}
+//    ];
 
     export default {
         data: function(){
@@ -63,6 +64,7 @@
                     }
                 ],
                 todoList:[]
+
             }
         },
         components: {
@@ -86,11 +88,15 @@
             //입력창 리셋
             resetValue(){
                 this.todo = {};
-
             }
         },
         created(){
-            this.todoList = tempTodo;
+            let headers = { Authorization: 'Bearer' + this.$auth.getToken()};
+            this.$http.post('http://localhost:8000/api/user', 'test', {headers: headers})
+                .then(response => {
+//                    console.log(response.data.todo);
+                    this.todoList = response.data.todo;
+                });
         },
         beforeMount(){
             eventBus.$on('sendEditId', (editData) => {
@@ -115,12 +121,6 @@
                 }
             });
         },
-    //    updated(){
-    //        console.log(this.todoList);
-    //    }
-            //새로 생성한 항목을 수정하면, 값은 수정되는데 뷰에서는 바뀌지 않는다 why?
-            //수정된 값이 TodoListTable.vue로 넘어가지 않기 때문???
-            //가상돔 문제.
     }
 </script>
 

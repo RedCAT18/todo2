@@ -40,15 +40,17 @@
                     email: this.email,
                     password: this.password
                 };
-                this.$http.post('localhost:8000/api/login', param)
+                this.$http.post('http://localhost:8000/api/login', param)
                     .then(response => {
-//                                console.log(response);
+//                                console.log(response.body);
                         this.$auth.setToken(response.body.token);
+                        this.$router.push('/inbox');
                     });
             }
         }
     }
 </script>
+
 <style>
     .btn-area { margin: 20px 0; }
     .btn-area p { margin: 20px 0; text-align: center; color: #a9a9a9; }
