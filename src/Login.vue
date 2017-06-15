@@ -45,7 +45,7 @@
 //                                console.log(response.body);
                         this.$auth.setToken(response.body.token);
                         this.$router.push('/inbox');
-                    });
+                    },response=> { alert(response.body.error)});
             }
         }
     }
