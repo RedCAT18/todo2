@@ -45,7 +45,7 @@
 //                                console.log(response.body);
                         this.$auth.setToken(response.body.token);
                         this.$router.push('/inbox');
-                    },response=> { alert(response.body.error)});
+                    },response=> { alert("이메일 혹은 비밀번호를 잘못 입력하셨습니다.")});
             }
         }
     }

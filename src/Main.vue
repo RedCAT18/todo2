@@ -18,7 +18,10 @@
             appHeader: Header,
             appMenu: Menu,
             appContents: Contents
-        }
+        },
+        beforeCreate(){
+            this.$router.push('/redirect');
+        },
     }
 </script>
 <style>

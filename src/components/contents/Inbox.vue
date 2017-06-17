@@ -90,13 +90,19 @@
                 this.todo = {};
             }
         },
-        created(){
+        beforeCreate(){
             let headers = { Authorization: 'Bearer' + this.$auth.getToken()};
-            this.$http.post('http://localhost:8000/api/user', 'test', {headers: headers})
-                .then(response => {
+            if(!headers) {
+                this.$router.push('/redirect');
+            } else {
+                this.$http.post('http://localhost:8000/api/user', 'test', {headers: headers})
+                    .then(response => {
 //                    console.log(response.data.todo);
-                    this.todoList = response.data.todo;
-                });
+                        this.todoList = response.data.todo;
+                    }, response => {
+                        this.$router.push('/redirect');
+                    });
+            }
         },
         beforeMount(){
             eventBus.$on('sendEditId', (editData) => {

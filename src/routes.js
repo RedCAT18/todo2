@@ -17,5 +17,6 @@ export const routes = [
         { path :'/inbox', component: Inbox },
         { path: '/today', component: Today },
         { path: '/nextweek', component: NextWeek }
-    ]}
+    ]},
+    {path: '/redirect', redirect: '/'}
 ];
