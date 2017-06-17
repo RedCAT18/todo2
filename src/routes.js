@@ -13,7 +13,7 @@ const Register = resolve => require(['./Register.vue'], resolve);
 export const routes = [
     { path: '/', component: Login},
     { path: '/register', component: Register },
-    { path: '/main', component: Main, name: 'main', children: [
+    { path: '/main', component: Main, name: 'main',  meta: { requiresAuth: true }, children: [
         { path :'/inbox', component: Inbox },
         { path: '/today', component: Today },
         { path: '/nextweek', component: NextWeek }

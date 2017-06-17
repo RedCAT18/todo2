@@ -22,6 +22,17 @@ const router = new VueRouter({
     mode:'history'
 });
 
+router.beforeEach((to, from, next) => {
+    // let token = localStorage.getItem('token');
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        next({
+            path: '/'
+        })
+    } else {
+        next()
+    }
+});
+
 export const eventBus = new Vue(); // 상수
 
 new Vue({
