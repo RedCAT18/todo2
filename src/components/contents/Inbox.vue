@@ -44,61 +44,62 @@
 <script>
     import TodoListTable from './TodoListTable.vue';
     import { eventBus } from '../../main';
-
-//    var tempTodo = [
-//        {id:1, title: '테스트일정1', date: '2017-05-01', type: 'inbox'},
-//        {id:2, title: '테스트일정2', date: '2017-05-01', type: 'inbox'},
-//        {id:3, title: '테스트일정3', date: '2017-05-01', type: 'inbox'},
-//        {id:4, title: '테스트일정4', date: '2017-05-01', type: 'inbox'}
-//    ];
+    import api from '../../api';
 
     export default {
         data: function(){
             return {
-                todo: [
-                    {
+                todo: {
                         id: '',
                         title: '',
                         date: '',
                         type: ''
-                    }
-                ],
-                todoList:[]
-
+                    },
+                todoList:[],
             }
         },
         components: {
             appTodoListTable : TodoListTable
         },
-        watch: {
-           todoList: function(newData) {
-//               console.log(newData);
-               //todoList가 변경되었을 시 새로운 데이터를 갱신?
-               this.todoList = newData;
-           }
-        },
+//        watch: {
+//           todo: function(newData) {
+//             this.initData();
+//           }
+//        },
         methods: {
             //create
             addTodo(){
-                if(!this.todo.id) {
-                    this.todo.id = this.todoList.length + 1;
-                    this.todoList.push(this.todo);
+                let editId = this.todo.id;
+                this.initData();
+                this.todo.id = editId;
+                api.addTodo(this.todo).then(response => {
+//                    console.log(response);
+                    if(response.body.todo) {
+                        if(response.body.todo.id !== editId){
+                            this.todoList.push(this.todo);
+                        }
+                        this.todo = [];
+                    }
+                });
+            },
+            initData: function(){
+                for (let key in this.todo) {
+                    this.$set(this.todo, key, this.todo.key);
+                    return this.todo;
                 }
             },
             //입력창 리셋
             resetValue(){
-                this.todo = {};
+                this.todo = [];
             }
         },
-        beforeCreate(){
-            let headers = { Authorization: 'Bearer' + this.$auth.getToken()};
-             this.$http.post('http://localhost:8000/api/user', 'test', {headers: headers})
-                .then(response => {
-//                    console.log(response.data.todo);
-                    this.todoList = response.data.todo;
-                }, response => {
-                    this.$router.push('/redirect');
-                });
+        created(){
+            //promise로 리턴 처리 받기
+            api.getTodo().then(response =>{
+               if(this.$auth.getToken()){
+                   this.todoList = response.data.todo;
+               }
+            });
         },
         beforeMount(){
             eventBus.$on('sendEditId', (editData) => {
@@ -111,16 +112,23 @@
 
             });
             eventBus.$on('sendDeleteId', (deleteData) => {
-                var len = this.todoList.length;
-                for (var i = 0; i < len; i++){
-                    if(this.todoList[i].id == deleteData) {
-    //                    console.log(i);
-                        if(confirm("정말로 삭제하시겠습니까?")) {
-                            this.todoList.splice(i,1);
-                            break;
-                        }
+                this.todoList.splice(deleteData, 1);
+                api.deleteTodo(deleteData).then(response => {
+                    console.log(response);
+                    if(response.success = 1){
+                        console.log('success');
                     }
-                }
+                });
+//                var len = this.todoList.length;
+//                for (var i = 0; i < len; i++){
+//                    if(this.todoList[i].id == deleteData) {
+//                        if(confirm("정말로 삭제하시겠습니까?")) {
+//                            console.log(deleteData);
+//                            this.todoList.splice(i,1);
+//
+//                        }
+//                    }
+//                }
             });
         },
     }

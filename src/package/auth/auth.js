@@ -2,7 +2,6 @@
  * Created by RedCAT on 2017-06-11.
  */
 
-
 export default function(Vue){
     //global
     Vue.auth = {
@@ -31,9 +30,6 @@ export default function(Vue){
            get: () => {
                return Vue.auth;
            }
-           // set: () => {
-           //
-           // }
        }
     });
 }

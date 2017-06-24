@@ -25,28 +25,45 @@
 </template>
 
 <script>
+    import api from './api';
 
     export default {
         data(){
             return {
                 email: '',
                 password: '',
-                login_fail: false
+//                login_fail: false
             }
         },
         methods : {
             doLogin(){
-                let param= {
-                    email: this.email,
-                    password: this.password
-                };
-                this.$http.post('http://localhost:8000/api/login', param)
-                    .then(response => {
-//                                console.log(response.body);
-                        this.$auth.setToken(response.body.token);
-                        this.$router.push('/inbox');
-                    },response=> { alert("이메일 혹은 비밀번호를 잘못 입력하셨습니다.")});
-            }
+                if(this.email == '') {
+                    alert ('이메일을 입력해주세요.');
+                } else if (this.password == '') {
+                    alert ('비밀번호를 입력해주세요.');
+                } else {
+                    let param= {
+                        email: this.email,
+                        password: this.password
+                    };
+                    api.login(this, param);
+
+//                    this.$http.post('http://localhost:8000/api/login', param)
+//                        .then(response => {
+////                                console.log(response.body);
+//                            this.$auth.setToken(response.body.token);
+//                            this.$router.push('/inbox');
+//                        },
+////                            response=> { alert("이메일 혹은 비밀번호를 잘못 입력하셨습니다.")}
+//                        ).catch(error => {
+//                            if(error.status == 401) {
+//                                alert ('이메일 혹은 비밀번호를 잘못 입력하셨습니다.');
+//                            } else {
+//                                alert ('서버에 문제가 발생했습니다.');
+//                            }
+//                        });
+                    }
+                }
         }
     }
 </script>

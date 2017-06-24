@@ -14,17 +14,19 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(Auth);
 
+Vue.http.options.root = 'http://localhost:8000/api/';
+
 //global use
 // Vue.prototype.$http = axios;
 
 const router = new VueRouter({
+    mode:'history',
     routes,
-    mode:'history'
 });
 
 router.beforeEach((to, from, next) => {
-    let token = localStorage.getItem('token');
-    if (to.matched.some(record => record.meta.requiresAuth) && !token) {
+    let isAuthed = Vue.auth.isAuthenticated();
+    if (to.matched.some(record => record.meta.requiresAuth) && !isAuthed) {
         next({
             path: '/'
         })

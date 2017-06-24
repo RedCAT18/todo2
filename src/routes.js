@@ -11,12 +11,13 @@ const NextWeek = resolve => require(['./components/contents/Nextweek.vue'], reso
 const Register = resolve => require(['./Register.vue'], resolve);
 
 export const routes = [
-    { path: '/', component: Login},
+    { path: '/', component: Login, name: 'login'},
     { path: '/register', component: Register },
     { path: '/main', component: Main, name: 'main',  meta: { requiresAuth: true }, children: [
-        { path :'/inbox', component: Inbox },
+        { path :'/inbox', component: Inbox, name:'inbox' },
         { path: '/today', component: Today },
         { path: '/nextweek', component: NextWeek }
     ]},
     {path: '/redirect', redirect: '/'}
+    // {path: '*', ....}
 ];
