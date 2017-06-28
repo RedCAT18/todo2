@@ -19,15 +19,8 @@
 
     export default {
     	props: ['item'],
-
-    	data: function(){
-	    	return {
-	   		   	//data model
-	 	   }
-    	},
 		methods: {
             getMenu(id){
-//    	        var screen = null;
     	        switch(id){
 					case 1:
                         this.$router.push('/inbox');
@@ -39,7 +32,8 @@
                         this.$router.push('/nextweek');
 					    break;
 				}
-				eventBus.$emit('setScreen', screen);
+//				eventBus.$emit('setScreen', screen);
+				this.$store.dispatch('setScreen', screen);
 			}
 		}
 	}

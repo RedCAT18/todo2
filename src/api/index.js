@@ -43,7 +43,7 @@ export default({
     getTodo: function(){
         return Vue.http.get('user');
     },
-    deleteTodo: function(id){
-        return Vue.http.post('user/delete', id);
+    deleteTodo: function (id){
+        return Vue.http.post('delete', id);
     }
 })

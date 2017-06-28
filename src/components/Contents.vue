@@ -19,10 +19,10 @@
             appInbox : Inbox
         },
         created(){
-            eventBus.$on('setScreen', (appScreen) => {
-                this.selectedComponent = appScreen;
-//                console.log(appScreen);
-            });
+//            eventBus.$on('setScreen', (appScreen) => {
+//                this.selectedComponent = appScreen;
+////                console.log(appScreen);
+//            });
         }
     }
 </script>

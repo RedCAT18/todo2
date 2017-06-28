@@ -1,5 +1,5 @@
 <template>
-    <tr @click="editTodo(tableList.id)">
+    <tr @click="updateTodo(tableList.id)">
         <td><input type="checkbox" class="input-sm" :id="'tableList'+ tableList.id"></td>
         <td>{{tableList.title}}</td>
         <td>{{tableList.date}}</td>
@@ -12,7 +12,8 @@
 </template>
 
 <script>
-    import { eventBus } from '../../main';
+    import api from '../../api';
+    import { mapActions } from 'vuex';
 
     export default {
         props: ['tableList'],
@@ -20,14 +21,18 @@
           return {  }
         },
         methods: {
-            editTodo(id){
-//                console.log(id);
-                eventBus.$emit('sendEditId', id);
-            },
-            deleteTodo(id){
-//                console.log(id);
-                eventBus.$emit('sendDeleteId', id);
-            }
+            ...mapActions([
+                'updateTodo',
+                'deleteTodo'
+            ])
+//
+//            updateTodo(id){
+//                this.$store.dispatch('updateTodo', id);
+//            },
+//            deleteTodo(id){
+////                console.log(id);
+//                this.$store.dispatch('deleteTodo', id);
+//            }
         }
     }
 

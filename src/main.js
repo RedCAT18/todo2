@@ -7,8 +7,7 @@ import Auth from './package/auth/auth';
 import App from './App.vue';
 
 import { routes } from './routes';
-
-// import axios from 'axios';
+import { store } from './store/store';
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
@@ -17,8 +16,6 @@ Vue.use(Auth);
 Vue.http.options.root = 'http://localhost:8000/api/';
 
 //global use
-// Vue.prototype.$http = axios;
-
 const router = new VueRouter({
     mode:'history',
     routes,
@@ -40,5 +37,6 @@ export const eventBus = new Vue(); // 상수
 new Vue({
   el: '#app',
     router,
+    store,
     render: h => h(App)
 })

@@ -20,6 +20,8 @@
 <script>
     import MenuTabPanel from './MenuTabPanel.vue';
 
+    import { mapGetters } from 'vuex';
+
     var tabList = [
         {id: 1, title: "Project1"},
         {id: 2, title: "Project2"},
@@ -33,12 +35,18 @@
     ];
 
     export default {
-     	data: function(){
-    	    	return {
-    	            lists : [],
-                    lastPlan : []
-                }  	
-    	    },
+//     	data: function(){
+//    	    	return {
+//    	            lists : [],
+//                    lastPlan : []
+//                }
+//    	    },
+        computed: {
+            ...mapGetters({
+                lists: 'getLists',
+                lastPlan: 'getPlan'
+            })
+        },
             methods: {
                 clickedTab(title){
                     title == "project" ?
@@ -50,7 +58,8 @@
             },
 
             created() {
-                this.lists = tabList
+                this.$store.dispatch('setLists', tabList);
+                this.$store.dispatch('setPlan', tabData);
             }
         }
 </script>
