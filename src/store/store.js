@@ -34,7 +34,6 @@ export const store = new Vuex.Store({
         getTodolist: state => { return state.todoList; },
     },
     mutations: {
-        setScreen(state, value) {state.selectedComponent = value},
         setLists(state, value) { state.lists = value; },
         setPlan(state, value) { state.lastPlan = value; },
         setTodolist(state, value) { state.todoList = value; },
@@ -45,7 +44,7 @@ export const store = new Vuex.Store({
         addTodo(state, value) {
             api.addTodo(state.todo).then(response => {
                 let editId = state.todo.id;
-                if(response.body.todo) {
+                if(response.body.todo) { //원래는 리스폰스가 success로 돌아온다면 등으로 쓰여야 함 <<
                     if(response.body.todo.id !== editId) {
                         state.todoList.push(state.todo);
                         state.todo = [];
@@ -54,23 +53,22 @@ export const store = new Vuex.Store({
             });
         },
         updateTodo(state, id) {
-            let len = state.todoList.length;
-            for (var i = 0; i < len; i++){
-                if(state.todoList[i].id == id) {
-                    state.todo = state.todoList[i];
-                }
-            }
+            let editTodo = state.todoList.find(x => x.id === id);
+            state.todo = editTodo;
         },
         deleteTodo(state, id){
             api.deleteTodo({id:id}).then(response => {
                 if(response.success = 1){
-                    let len = state.todoList.length;
-                    for (var i = 0; i < len; i++){
-                        if(state.todoList[i].id == id) {
-                            state.todoList.splice(i,1);
-                            break;
-                        }
-                    }
+                    let delTodo = state.todoList.findIndex(x => x.id === id);
+                    // console.log(delTodo);
+                    state.todoList.splice(delTodo, 1);
+                    // let len = state.todoList.length;
+                    // for (var i = 0; i < len; i++){
+                    //     if(state.todoList[i].id == id) {
+                    //         state.todoList.splice(i,1);
+                    //         break;
+                    //     }
+                    // }
                 }
             });
         },
@@ -79,7 +77,6 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
-        setScreen({commit}, value) {commit('setScreen', value); },
         setLists({commit}, value) { commit('setLists', value); },
         setPlan({commit}, value){ commit('setPlan', value); },
         setTodolist({commit}, value){ commit('setTodolist', value) },

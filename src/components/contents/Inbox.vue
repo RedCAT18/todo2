@@ -43,7 +43,6 @@
 
 <script>
     import TodoListTable from './TodoListTable.vue';
-    import { eventBus } from '../../main';
     import api from '../../api';
 
     import { mapGetters } from 'vuex';
@@ -75,15 +74,8 @@
             addTodo(todo){
                 this.$store.dispatch('addTodo', this.$store.getters.getTodo);
             },
-//            initData: function(){
-//                for (let key in this.todo) {
-//                    this.$set(this.todo, key, this.todo.key);
-//                    return this.todo;
-//                }
-//            },
             //입력창 리셋
             resetValue(){
-//                this.todo = [];
                 this.$store.dispatch('resetValue');
             }
         },

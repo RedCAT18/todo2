@@ -11,8 +11,6 @@
 	import Today from '../contents/Today.vue';
 	import NextWeek from '../contents/NextWeek.vue';
 
-	import { eventBus } from '../../main';
-
 	var srcInbox = Inbox;
 	var srcNextWeek = NextWeek;
 	var srcToday = Today;
@@ -32,8 +30,6 @@
                         this.$router.push('/nextweek');
 					    break;
 				}
-//				eventBus.$emit('setScreen', screen);
-				this.$store.dispatch('setScreen', screen);
 			}
 		}
 	}

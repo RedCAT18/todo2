@@ -35,12 +35,6 @@
     ];
 
     export default {
-//     	data: function(){
-//    	    	return {
-//    	            lists : [],
-//                    lastPlan : []
-//                }
-//    	    },
         computed: {
             ...mapGetters({
                 lists: 'getLists',
@@ -56,7 +50,6 @@
             components : {
                 appMenuTabPanel: MenuTabPanel
             },
-
             created() {
                 this.$store.dispatch('setLists', tabList);
                 this.$store.dispatch('setPlan', tabData);
